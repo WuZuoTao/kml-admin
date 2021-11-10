@@ -1,7 +1,9 @@
 <template>
   <div>
       <el-container>
-          <el-aside width="200px">Aside</el-aside>
+          <el-aside width="200px">
+              <NavMenu/>
+          </el-aside>
           <el-main>
               <el-header>
                   <h1>开卖啦后台</h1>
@@ -15,8 +17,10 @@
 </template>
 
 <script>
+import NavMenu from '../views/NavMenu.vue'
 export default {
-    name: 'Layout'
+    name: 'Layout',
+    components:{NavMenu}
 }
 </script>
 

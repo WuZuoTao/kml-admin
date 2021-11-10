@@ -1,10 +1,12 @@
 <template>
-  <div class="menu">菜单组件</div>
+    <div>
+        NavMenu
+    </div>
 </template>
 
 <script>
 export default {
-    name: 'menu'
+    name: 'NavMenu'
 }
 </script>
 
