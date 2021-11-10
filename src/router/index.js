@@ -3,6 +3,11 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
+//解决vue-router的bug
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location){
+    return originalPush.call(this,location).catch(err => err)
+}
 const router = new VueRouter({
     routes:[
         {
@@ -17,6 +22,10 @@ const router = new VueRouter({
                 {
                     path: '/menu',
                     component:()=>import('../components/pages/menu/Index.vue')
+                },
+                {
+                    path: '/menu/add',
+                    component:()=>import('../components/pages/menu/Edit.vue')
                 },
                 {
                     path: '/role',

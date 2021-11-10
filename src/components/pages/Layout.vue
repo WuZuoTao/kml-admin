@@ -1,5 +1,4 @@
 <template>
-  <div>
       <el-container>
           <el-aside width="200px">
               <NavMenu/>
@@ -13,7 +12,6 @@
               </div>
           </el-main>
       </el-container>
-  </div>
 </template>
 
 <script>
@@ -24,6 +22,11 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.layout{
+    height: 100%;
+}
+.el-container{
+    height: 100%;
+}
 </style>
