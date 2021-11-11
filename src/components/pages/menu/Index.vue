@@ -39,6 +39,7 @@
 </template>
 
 <script>
+import {mapActions} from 'vuex'
 export default {
   name: "v-menu",
   data() {
@@ -49,18 +50,22 @@ export default {
     };
   },
   mounted() {
-    this.getMenuList();
+    this.getMenuList({istree:1}).then(res => {
+      this.menulist = res.data.list
+    }).catch(err => console.log(err));
   },
   methods: {
     // 异步请求，渲染DOM
-    getMenuList() {
-      this.$axios
-        .get("/api/menulist",{params:{istree:1}})
-        .then((result) => {
-          this.menulist = result.data.list;
-        })
-        .catch((err) => err);
-    },
+      ...mapActions(['getMenuList']),
+      // getMenuList() {
+      // 通过vuex调用action来请求数据
+      // this.$axios
+      //   .get("/api/menulist",{params:{istree:1}})
+      //   .then((result) => {
+      //     this.menulist = result.data.list;
+      //   })
+      //   .catch((err) => err);
+      //},
     // 编辑按钮
     edit(id){
       this.$router.push('/menu/' + id)

@@ -63,6 +63,7 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
 export default {
   name: "Edit",
   data() {
@@ -85,11 +86,14 @@ export default {
           { required: true, message: "上级才单不能为空", trigger: "change" },
         ],
       },
-      menuList: [],
+      // menuList: [],
     };
   },
+  computed:{
+    ...mapState(["menuList"])
+  },
   mounted() {
-    this.getMenuList();
+    // this.getMenuList();
     let id =  this.$route.params.id
     if(id){
       this.type = "编辑"
@@ -98,14 +102,14 @@ export default {
   },
   methods: {
     // 获取 上级菜单渲染列表
-    getMenuList() {
-      this.$axios
-        .get("/api/menulist", { params: { istree: 1 } })
-        .then(res => {
-          this.menuList = res.data.list;
-        })
-        .catch((err) => err);
-    },
+    // getMenuList() {
+    //   this.$axios
+    //     .get("/api/menulist", { params: { istree: 1 } })
+    //     .then(res => {
+    //       this.menuList = res.data.list;
+    //     })
+    //     .catch((err) => err);
+    // },
 
     getMenuInfo(id){
       this.$axios.get('/api/menuinfo',{params:{id:id}})
