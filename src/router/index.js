@@ -28,6 +28,10 @@ const router = new VueRouter({
                     component:()=>import('../components/pages/menu/Edit.vue')
                 },
                 {
+                    path: '/menu/:id',
+                    component:()=>import('../components/pages/menu/Edit.vue')
+                },
+                {
                     path: '/role',
                     component:()=>import('../components/pages/role/Index.vue')
                 },

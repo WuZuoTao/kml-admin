@@ -1,8 +1,6 @@
 <template>
   <div>
-      <LbColumn>
-
-      </LbColumn>
+    Home
   </div>
 </template>
 

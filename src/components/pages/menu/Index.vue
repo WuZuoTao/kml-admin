@@ -21,15 +21,14 @@
         <template slot-scope="scope">
         <el-button type="primary" @click="edit(scope.row.id)">编辑</el-button>
             
-          <el-button type="danger" @click="dialogVisible = true">删除</el-button>
+          <el-button type="danger" @click="dialogVisible = true;delId=scope.row.id">删除</el-button>
         </template>
          </el-table-column>
     </el-table>
     <el-dialog
   title="提示"
   :visible.sync="dialogVisible"
-  width="30%"
-  :before-close="handleClose">
+  width="30%">
   <span>确定删除吗</span>
   <span slot="footer" class="dialog-footer">
     <el-button @click="dialogVisible = false">取 消</el-button>
@@ -46,12 +45,14 @@ export default {
     return {
       dialogVisible: false,
       menulist: [],
+      delId:''
     };
   },
   mounted() {
     this.getMenuList();
   },
   methods: {
+    // 异步请求，渲染DOM
     getMenuList() {
       this.$axios
         .get("/api/menulist",{params:{istree:1}})
@@ -60,11 +61,19 @@ export default {
         })
         .catch((err) => err);
     },
-    edit(){
-
+    // 编辑按钮
+    edit(id){
+      this.$router.push('/menu/' + id)
     },
+    // 删除按钮
     deleTMenu(){
       this.dialogVisible = false
+      this.$axios.post('/api/menudelete',{id:this.delId })
+      .then(res => {
+        if(res.data.code === 200){
+          this.menulist = res.data.list
+        }
+      }).catch(err => console.log(err))
     }
   }
 };
