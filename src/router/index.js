@@ -31,10 +31,20 @@ const router = new VueRouter({
                     path: '/menu/:id',
                     component:()=>import('../components/pages/menu/Edit.vue')
                 },
+                // 角色管理
                 {
                     path: '/role',
                     component:()=>import('../components/pages/role/Index.vue')
                 },
+                {
+                    path: '/role/add',
+                    component:()=>import('../components/pages/role/Edit.vue')
+                },
+                {
+                    path: '/role/:id',
+                    component:()=>import('../components/pages/role/Edit.vue')
+                },
+                // 管理员管理
                 {
                     path: '/admin',
                     component:()=>import('../components/pages/admin/Index.vue')
