@@ -49,6 +49,14 @@ const router = new VueRouter({
                     path: '/admin',
                     component:()=>import('../components/pages/admin/Index.vue')
                 },
+                {
+                    path: '/admin/add',
+                    component:()=>import('../components/pages/admin/Edit.vue')
+                },
+                {
+                    path: '/admin/:id',
+                    component:()=>import('../components/pages/admin/Edit.vue')
+                },
             ]
         },
         {
