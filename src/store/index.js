@@ -6,12 +6,17 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-        menuList: []
+        menuList: [],
+        userinfo:{}
     },
 
     mutations: {
         saveMenuList(state, menuList) {
             state.menuList = menuList
+        },
+        //保存用户信息
+        saveUserinfo(state,info){
+            state.userinfo = info
         }
     },
 
@@ -24,6 +29,19 @@ export default new Vuex.Store({
                     commit('saveMenuList', result.data.list)
                     resolve(result)
                 }).catch(err => reject(err));
+            })
+        },
+        //用户登录
+        userLogin({commit},params = {}){
+            return new Promise((resolve,reject) => {
+                axios.post("/api/userlogin",params)
+                .then(res => {
+                    commit('saveUserinfo',res.data.list)
+                    resolve(res)
+                }).catch(err => {
+                    console.log(err)
+                    reject(err)
+                })
             })
         }
     }
