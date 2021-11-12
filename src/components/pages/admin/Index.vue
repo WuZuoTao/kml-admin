@@ -4,7 +4,7 @@
   <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
   <el-breadcrumb-item>管理员管理</el-breadcrumb-item>
 </el-breadcrumb>
-  <el-button type="primary" style="margin-top:10px;margin-bottom:10px" @click="$router.push('/admin/add')">添加</el-button>
+  <el-button type="primary" style="margin-top:10px;margin-bottom:10px" @click="$router.push('/user/add')">添加</el-button>
     <el-table :data="userlist" border style="width: 100%" row-key="id">
       <el-table-column prop="id" label="编号" width="180"> </el-table-column>
       <el-table-column prop="username" label="名称" width="180"> </el-table-column>
@@ -19,20 +19,10 @@
       <el-table-column label="操作">
         <template slot-scope="scope">
         <el-button type="primary" @click="edit(scope.row.uid)">编辑</el-button>
-          <el-button type="danger" @click="dialogVisible = true;delId=scope.row.id">删除</el-button>
+          <el-button type="danger" @click="deleUser(scope.row.id)">删除</el-button>
         </template>
          </el-table-column>
     </el-table>
-    <el-dialog
-  title="提示"
-  :visible.sync="dialogVisible"
-  width="30%">
-  <span>确定删除吗</span>
-  <span slot="footer" class="dialog-footer">
-    <el-button @click="dialogVisible = false">取 消</el-button>
-    <el-button type="primary" @click="deleTMenu">确 定</el-button>
-  </span>
-</el-dialog>
   </div>
 </template>
 
@@ -63,18 +53,20 @@ export default {
 
     // 编辑按钮
     edit(uid){
-      this.$router.push('/admin/' + uid)
+      this.$router.push('/user/' + uid)
     },
 
     // 删除按钮
-    deleTMenu(){
-      this.dialogVisible = false
-      this.$axios.post('/api/userdelete',{id:this.delId })
-      .then(res => {
-        if(res.data.code === 200){
-          this.userlist = res.data.list
-        }
-      }).catch(err => console.log(err))
+    deleUser(id){
+     let c = confirm('你确定删除吗？')
+      if(c){
+        this.$axios.post('/api/userdelete',{id:id })
+          .then(res => {
+            if(res.data.code === 200){
+              this.userlist = res.data.list
+            }
+        }).catch(err => console.log(err))
+      }
     }
   }
 };

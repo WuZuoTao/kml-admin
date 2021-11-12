@@ -18,20 +18,10 @@
       <el-table-column label="操作">
         <template slot-scope="scope">
         <el-button type="primary" @click="edit(scope.row.id)">编辑</el-button>
-          <el-button type="danger" @click="dialogVisible = true;delId=scope.row.id">删除</el-button>
+          <el-button type="danger" @click="deleRole(scope.row.id)">删除</el-button>
         </template>
-         </el-table-column>
+      </el-table-column>
     </el-table>
-    <el-dialog
-  title="提示"
-  :visible.sync="dialogVisible"
-  width="30%">
-  <span>确定删除吗</span>
-  <span slot="footer" class="dialog-footer">
-    <el-button @click="dialogVisible = false">取 消</el-button>
-    <el-button type="primary" @click="deleTMenu">确 定</el-button>
-  </span>
-</el-dialog>
   </div>
 </template>
 
@@ -62,14 +52,16 @@ export default {
       this.$router.push('/role/' + id)
     },
     // 删除按钮
-    deleTMenu(){
-      this.dialogVisible = false
-      this.$axios.post('/api/menudelete',{id:this.delId })
-      .then(res => {
-        if(res.data.code === 200){
-          this.menulist = res.data.list
-        }
-      }).catch(err => console.log(err))
+    deleRole(id){
+     let c = confirm('你确定删除吗？')
+      if(c){
+        this.$axios.post('/api/roledelete',{id:id })
+          .then(res => {
+            if(res.data.code === 200){
+              this.rolelist = res.data.list
+            }
+        }).catch(err => console.log(err))
+      }
     }
   }
 };

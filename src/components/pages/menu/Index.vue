@@ -20,10 +20,9 @@
       <el-table-column label="操作">
         <template slot-scope="scope">
         <el-button type="primary" @click="edit(scope.row.id)">编辑</el-button>
-            
           <el-button type="danger" @click="dialogVisible = true;delId=scope.row.id">删除</el-button>
         </template>
-         </el-table-column>
+      </el-table-column>
     </el-table>
     <el-dialog
   title="提示"

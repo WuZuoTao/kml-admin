@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import state from "../store"
 
 Vue.use(VueRouter)
 
@@ -14,6 +15,7 @@ const router = new VueRouter({
             path: '/',
             component:() => import('../components/pages/Layout.vue'),
             redirect:'/home',
+            meta:{requiresAuth: true},
             children:[
                 {
                     path: '/home',
@@ -46,16 +48,29 @@ const router = new VueRouter({
                 },
                 // 管理员管理
                 {
-                    path: '/admin',
+                    path: '/user',
                     component:()=>import('../components/pages/admin/Index.vue')
                 },
                 {
-                    path: '/admin/add',
+                    path: '/user/add',
                     component:()=>import('../components/pages/admin/Edit.vue')
                 },
                 {
-                    path: '/admin/:id',
+                    path: '/user/:id',
                     component:()=>import('../components/pages/admin/Edit.vue')
+                },
+                 // 分类管理
+                 {
+                    path: '/cate',
+                    component:()=>import('../components/pages/Cate/Index.vue')
+                },
+                {
+                    path: '/cate/add',
+                    component:()=>import('../components/pages/Cate/Edit.vue')
+                },
+                {
+                    path: '/cate/:id',
+                    component:()=>import('../components/pages/Cate/Edit.vue')
                 },
             ]
         },
@@ -65,6 +80,23 @@ const router = new VueRouter({
         },
         
     ]
+})
+//全局前置路由守卫，验证是否登入
+router.beforeEach((to,from,next) => {
+    //判断目标路由是否需要登入,才能访问
+    if(to.matched.some(recored => recored.meta.requiresAuth)){
+        //如果需要登入进一步判断用户是否已经登入
+        if(state.state.userinfo.token){
+            next()
+        }else{
+            next({
+                path:'/login',
+                query:{redirect: to.fullPath}
+            })
+        }
+    }else{
+        next()
+    }
 })
 
 export default router

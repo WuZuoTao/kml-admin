@@ -44,7 +44,9 @@ export default {
             this.userLogin(this.form)
             .then(res => {
               if(res.data.code === 200){
-                this.$router.push('/home')
+                //有值就跳转到对应的页面，没值就默认首页
+                let target = this.$route.query.redirect || "/home"
+                this.$router.push(target)
               }
             }).catch(err => {
               console.log(err)

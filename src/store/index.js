@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import creatPersistedState from 'vuex-persistedstate'
+
 Vue.use(Vuex)
 
 
@@ -17,6 +19,10 @@ export default new Vuex.Store({
         //保存用户信息
         saveUserinfo(state,info){
             state.userinfo = info
+        },
+        //清除用户信息
+        userlogut(state){
+            state.userinfo = {}
         }
     },
 
@@ -44,5 +50,7 @@ export default new Vuex.Store({
                 })
             })
         }
-    }
+    },
+    //插件  creatPersistedState  可以吧store中的数据保存在localStrage中
+    plugins:[creatPersistedState()]
 })

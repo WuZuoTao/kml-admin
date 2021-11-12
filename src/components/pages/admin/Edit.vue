@@ -36,7 +36,7 @@
 
       <el-form-item>
         <el-button type="primary" @click="onSubmit()">立即创建</el-button>
-        <el-button>取消</el-button>
+        <el-button @click="onCancel()">取消</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -92,8 +92,9 @@ export default {
         this.form = res.data.list
       }).catch(Err => console.log(Err))
     },
-
-
+    onCancel(){
+      this.$router.push('/user')
+    },
     onSubmit() {
       this.$refs["form"].validate((valid) => {
         if (valid) {
