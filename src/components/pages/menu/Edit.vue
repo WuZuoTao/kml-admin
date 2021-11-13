@@ -111,6 +111,7 @@ export default {
     //     .catch((err) => err);
     // },
 
+    //编辑按钮
     getMenuInfo(id){
       this.$axios.get('/api/menuinfo',{params:{id:id}})
       .then(res => {

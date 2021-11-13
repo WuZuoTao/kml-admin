@@ -17,8 +17,9 @@
       </el-form-item>
 
       <el-form-item label="上级菜单">
-        <el-select v-model="form.pid" placeholder="请选择活动区域">
-          <el-option v-for="c in cateList" :key="c.id" :label="c.catename" :value="c.id"></el-option>
+        <el-select v-model="form.pid" placeholder="请选择上级菜单">
+          <el-option :value="0" label="顶级菜单" />
+          <el-option v-for="c in cateList" :key="c.id" :label="c.catename" :value="c.id" />
         </el-select>
       </el-form-item>
      <el-form-item>
@@ -30,14 +31,12 @@
             :auto-upload="false"
             :on-change="handlChange"
             >
-            <i class="el-icon-plus"></i>
+              <i class="el-icon-plus" />
             </el-upload>
             <el-dialog :visible.sync="dialogVisible">
-            <img width="100%" :src="dialogImageUrl" alt="">
-        </el-dialog>
+                <img width="100%" :src="dialogImageUrl" alt="">
+            </el-dialog>
      </el-form-item>
-
-
       <el-form-item label="状态">
         <el-switch v-model="form.status"
         :active-value="1"
@@ -64,7 +63,7 @@ export default {
         catename:"", //分类名称
         status: "", //状态
       },
-        img: "", //分类的图片
+       img: "", //分类的图片
        cateList: [],
        dialogVisible:false,
        dialogImageUrl:''
@@ -72,6 +71,10 @@ export default {
   },
   mounted() {
       this.getCateList()
+      let id = this.$route.params.id
+      if(id){
+       this.getCateInfo(id)
+      }
   },
   methods: {
     getCateList() {
@@ -93,16 +96,27 @@ export default {
         console.log(file)
         this.img = file.raw
     },
+    //  编辑请求
+    getCateInfo(id){
+      this.$axios.get('/api/cateinfo',{params:{id:id}})
+      .then(res => {
+        this.form = res.data.list
+        this.dialogImageUrl = res.data.list.img
+        // this.dialogVisible = true;
+      }).catch(Err => console.log(Err))
+    },
+
+    //取消按钮
     onCancel(){
       this.$router.push('/cate')
     },
+    //提交按钮
    onSubmit() {
       this.$refs["form"].validate((valid) => {
         if (valid) {
           //深拷贝
           let str = JSON.stringify(this.form)
           let data = JSON.parse(str)
-
           //如果是编辑，则吧接口地址改为编辑的接口
           let url = "/api/cateadd"
           if(this.type === "编辑"){

@@ -49,6 +49,7 @@ export default {
     edit(id){
       this.$router.push('/cate/' + id)
     },
+    // 获取后台数据
     getCateList(){
         this.$axios.get('/api/catelist',{params:{istree:1}})
         .then(res => {

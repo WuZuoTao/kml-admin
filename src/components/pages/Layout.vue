@@ -5,16 +5,13 @@
           </el-aside>
           <el-main>
               <el-header>
-                  <header class="page-header">
-                      <img src="../../assets/a1.png" class="avatar" alt="">
-                  </header>
-                  <el-dropdown>
-                <span class="el-dropdown-link">
-                    {{userinfo.username}}<i class="el-icon-arrow-down el-icon--right"></i>
-                </span>
-                <el-dropdown-menu slot="dropdown">
-                   <span @click="logout"><el-dropdown-item >退出</el-dropdown-item></span> 
-                </el-dropdown-menu>
+                <el-dropdown>
+                    <span class="el-dropdown-link">
+                    <i class="el-icon-user-solid el-icon--right"></i>{{userinfo.username}}
+                    </span>
+                    <el-dropdown-menu slot="dropdown">
+                    <span @click="logout"><el-dropdown-item >退出</el-dropdown-item></span> 
+                    </el-dropdown-menu>
                 </el-dropdown>
               </el-header>
               <div class="content">
@@ -59,6 +56,15 @@ export default {
 }
 .content{
    margin: 20px;
+}
+.el-dropdown{
+    line-height: 60px;
+    float: right;
+    right: 100px;
+}
+.el-dropdown i {
+    font-size: 30px;
+    margin-top: 15px;
 }
 .avatar {
     float: right;

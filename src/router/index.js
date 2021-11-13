@@ -72,6 +72,32 @@ const router = new VueRouter({
                     path: '/cate/:id',
                     component:()=>import('../components/pages/Cate/Edit.vue')
                 },
+                //规格管理
+                {
+                    path: '/specs',
+                    component:()=>import('../components/pages/specs/Index.vue')
+                },
+                {
+                    path: '/specs/add',
+                    component:()=>import('../components/pages/specs/Edit.vue')
+                },
+                {
+                    path: '/specs/:id',
+                    component:()=>import('../components/pages/specs/Edit.vue')
+                },
+                //规格管理
+                {
+                    path: '/goods',
+                    component:()=>import('../components/pages/goods/Index.vue')
+                },
+                {
+                    path: '/goods/add',
+                    component:()=>import('../components/pages/goods/Edit.vue')
+                },
+                {
+                    path: '/goods/:id',
+                    component:()=>import('../components/pages/goods/Edit.vue')
+                },
             ]
         },
         {
